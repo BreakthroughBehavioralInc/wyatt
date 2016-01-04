@@ -9,7 +9,7 @@
 /test/version_tmp/
 /tmp/
 /node_modules/
-/.idea/
+.idea/
 
 ## Specific to RubyMotion:
 .dat*

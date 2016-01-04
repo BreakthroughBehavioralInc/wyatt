@@ -1,7 +1,7 @@
 <h1>Wyatt - rspec generator</h1>
 
 
-![siberian husky](https://upload.wikimedia.org/wikipedia/commons/d/d2/Siberian_Husky_with_Blue_Eyes.jpg)
+![siberian husky](https://www.avidpost.com/static/media/2015/9/7/9/preview_BZcsCxExjZTrnCWGEOURTPgmYBhGKWtLYpDDiydyphVxKPJJQyTUjnBEqcaPOvQiqj.jpg)
 
 Wyatt generates rspec feature tests by clicking around your website. 
 

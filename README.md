@@ -12,9 +12,15 @@ Current support includes links and inputs.
 Uses the yeoman chrome extension build tool.
 
 <h3>How to install:</h3>
-Open Chrome
-Open extensions
-Click Load unpacked extension...
-Choose the app directory of Wyatt
-Reload the extensions page
-Go to Breakthrough.com and give it a test!
+
+1. Open Chrome
+
+2. Open extensions
+
+3. Click Load unpacked extension...
+
+4. Choose the app directory of Wyatt
+
+5. Reload the extensions page
+
+6. Go to Breakthrough.com and give it a test!

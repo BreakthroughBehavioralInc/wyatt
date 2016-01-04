@@ -1,15 +1,7 @@
- _    _             _   _   
-| |  | |           | | | |  
-| |  | |_   _  __ _| |_| |_ 
-| |/\| | | | |/ _` | __| __|
-\  /\  / |_| | (_| | |_| |_ 
- \/  \/ \__, |\__,_|\__|\__|
-         __/ |              
-        |___/               
+<h1>Wyatt - rspec generator</h1>
 
 
-
-Wyatt - rspec generator
+![siberian husky](https://upload.wikimedia.org/wikipedia/commons/d/d2/Siberian_Husky_with_Blue_Eyes.jpg)
 
 Wyatt generates rspec feature tests by clicking around your website. 
 

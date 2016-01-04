@@ -1,0 +1,36 @@
+body {
+  padding: 20px;
+  width: 400px;
+  height: 600px;
+}
+
+.is-hidden {
+  display: none;
+}
+
+.margin-bottom-20 {
+  margin-bottom: 20px;
+}
+
+.block {
+  display: block;
+}
+
+input, button {
+  width: 100%;
+  display: block;
+  box-sizing: border-box;
+  padding: 7px;
+  border-radius: 3px;
+  border: 1px solid darkseagreen;
+  box-shadow: 0;
+}
+
+button, input[type=submit] {
+  background: #8908BC;
+  color: white;
+}
+
+#result-inner {
+  margin-bottom: 40px;
+}

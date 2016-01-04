@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <!-- build:css styles/vendor.css -->
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css styles/main.css -->
+    <link href="styles/main.css" rel="stylesheet">
+    <!-- endbuild -->
+  </head>
+  <body>
+    <a href="javascript://" id="print-button" class="margin-bottom-20 is-hidden">Print test</a>
+
+    <div id="start-wrapper">
+      <h1>Make a new test</h1>
+
+      <input type="text" id="describe-statement" placeholder="Describe statement (Homepage)"><br>
+      <input type="text" id="context-statement" placeholder="Context statement (Testimonials)">
+      <br>
+      <label>It...</label>
+      <input type="text" id="it-statement" placeholder="should...">
+      <br>
+      <button id="recording-start">Start recording</button>
+    </div>
+
+    <div id='recording-wrapper' class="is-hidden">
+      <h2>Recording!</h2>
+      <button href="javascript" id="recording-stop">Stop recording</button>
+    </div>
+
+    <div id='expect-wrapper' class="is-hidden">
+      <h2>What should happen now?</h2>
+      <input class="margin-bottom-20" type="text" id="expect-statement" placeholder="expect(page).to have_content('Success!')">
+      <input type="submit" id="save-button" value="Save">
+    </div>
+
+    <div id="results-wrapper" class="is-hidden">
+      <div id="result-inner"></div>
+      <button id="done">New test</button>
+    </div>
+
+    <!-- build:js scripts/vendor.js -->
+    <!-- bower:js -->
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:js scripts/popup.js -->
+    <script src="scripts/popup.js"></script>
+    <!-- endbuild -->
+  </body>
+</html>

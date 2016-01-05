@@ -5,8 +5,6 @@ Wyatt is a siberian husky that lives inside Chrome. He gets enjoyment from life 
 
 Wyatt generates rspec feature tests by clicking around your website. 
 
-It does not include jQuery, so you must write plain javascript please.
-
 Current support includes links and inputs.
 
 Uses the yeoman chrome extension build tool.
@@ -29,6 +27,8 @@ Uses the yeoman chrome extension build tool.
 Everything you will want to edit is in the app/scripts/ directory.
 
 You may want to look at popup.html and main.css as well.
+
+It does not include jQuery, so you must write plain javascript please.
 
 <h3>How to run tests</h3>
 There are no tests at the moment, but that will change soon.

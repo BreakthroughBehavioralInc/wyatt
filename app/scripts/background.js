@@ -19,7 +19,7 @@ chrome.runtime.onMessage.addListener(
       "from the extension");
 
     if (request.listen == "start") {
-
+      page = "";
       page += 'require "rails_helper"<br><br>';
       page += 'describe "'+request.describe + '" do<br>';
       page += '&nbsp;&nbsp;context "'+request.context + '" do<br>';
@@ -40,8 +40,6 @@ chrome.runtime.onMessage.addListener(
       page += "end<br>";
 
       sendResponse({page: page});
-
-      page = "";
 
     } else if (request.node == "input") {
       recordInput(request.target, request.value);

@@ -20,7 +20,8 @@ function beginListening(e) {
 
   $("#start-wrapper").classList.add("is-hidden");
   $("#recording-wrapper").classList.remove("is-hidden");
-  localStorage["serb-recording"] = "listening";
+  localStorage["wyatt-recording"] = "listening";
+  delete localStorage["wyatt-page"]
 }
 
 function stopListening(e) {
@@ -38,12 +39,12 @@ function stopListening(e) {
 function save(e) {
   e.preventDefault();
   chrome.runtime.sendMessage({listen: "save", expect: $("#expect-statement").value}, function(response) {
-    $("#result-inner").innerHTML = response.page;
+    var page = response.page;
+    localStorage["wyatt-page"] = page;
 
-    $("#expect-wrapper").classList.add("is-hidden");
-    $("#results-wrapper").classList.remove("is-hidden");
+    presentResults(page);
 
-    localStorage["serb-recording"] = false;
+    localStorage["wyatt-recording"] = false;
   });
 }
 
@@ -55,11 +56,20 @@ function print(e) {
   });
 }
 
+function presentResults(page) {
+  $("#result-inner").innerHTML = page;
+  $("#expect-wrapper").classList.add("is-hidden");
+  $("#results-wrapper").classList.remove("is-hidden");
+  $("#start-wrapper").classList.add("is-hidden");
+}
+
 document.addEventListener("DOMContentLoaded", function() {
 
-  if (localStorage["serb-recording"] === "listening") {
+  if (localStorage["wyatt-recording"] === "listening") {
     $("#expect-wrapper").classList.remove("is-hidden");
     $("#start-wrapper").classList.add("is-hidden");
+  } else if (localStorage["wyatt-page"]) {
+    presentResults(localStorage["wyatt-page"]);
   }
 
   $("#recording-start").addEventListener("click", beginListening);
@@ -67,6 +77,7 @@ document.addEventListener("DOMContentLoaded", function() {
   $("#save-button").addEventListener("click", save);
   $("#print-button").addEventListener("click", print);
   $("#done").addEventListener("click", function() {
+    delete localStorage["wyatt-page"];
     $("#start-wrapper").classList.remove("is-hidden");
     $("#results-wrapper").classList.add("is-hidden");
   }, false);

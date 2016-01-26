@@ -7,8 +7,9 @@ var RECORDING_KEY = "wyatt-recording"
 
 var helpers = {
   getSelectorFromElement: function(el) {
-    var targetSelector = el.getAttribute("id");
-    var isAmbiguous = true;
+    var targetSelector = el.getAttribute("id"),
+        isAmbiguous = true,
+        children;
 
     if (!targetSelector) { // Then no ID, let's check classnames
       targetSelector = el.classList;
@@ -19,6 +20,10 @@ var helpers = {
 
         if (document.querySelectorAll(targetSelector).length === 1) { // Great the class name combo is unique
           isAmbiguous = false;
+        } else {
+          children = el.parentElement.children;
+          children = Array.prototype.slice.call( children );
+          targetSelector = targetSelector+":nth-child(" + (children.indexOf(el) + 1) + ")";
         }
       }
 
@@ -40,7 +45,7 @@ var helpers = {
 
     targetSelector.unshift( selectorObject[0] );
 
-    while ( selectorObject[1] && document.querySelectorAll( targetSelector.join(" ") ).length > 1 ) { // selectorObject[1] is a boolean. True it is ambiguous selector or false it is ready to go.
+    while ( document.querySelectorAll( targetSelector.join(" ") ).length > 1 ) {
       selectorObject = this.getSelectorFromElement(selectorObject[2].parentElement);
 
       targetSelector.unshift( selectorObject[0] );

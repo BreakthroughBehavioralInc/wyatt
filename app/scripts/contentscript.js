@@ -55,7 +55,7 @@ var helpers = {
 
     if (children.length > 1) {
       nodeList = Array.prototype.slice.call( children );
-      selector = targetSelector+":nth-child(" + nodeList.indexOf(el) + ")";
+      selector = targetSelector+":nth-child(" + (nodeList.indexOf(el) + 1) + ")";
     } else {
       selector = targetSelector;
     }
@@ -65,7 +65,6 @@ var helpers = {
 
   clicked: function(e, nodeName) {
     var targetSelector = helpers.getDomSelector(e.target);
-
     chrome.runtime.sendMessage({eventType: "click", target: targetSelector, node: nodeName});
   },
 
@@ -100,7 +99,7 @@ function eventFactory(e) {
 }
 
 function beginListening() {
-  var els = document.querySelectorAll('a, button');
+  var els = document.querySelectorAll('a, button, .btn');
 
   for (var i = 0; i < els.length; i++) {
     els[i].addEventListener('click', eventFactory, false);
@@ -120,7 +119,11 @@ function beginListening() {
 }
 
 function stopListening() {
-  var els = document.querySelectorAll('a, button');
+  var els;
+
+  delete localStorage["serb-recording"];
+
+  els = document.querySelectorAll('a, button');
   for (var i = 0; i < els.length; i++) {
     els[i].removeEventListener('click', eventFactory, false);
   }
@@ -129,8 +132,6 @@ function stopListening() {
   for (var i = 0; i < els.length; i++) {
     els[i].removeEventListener('focus', eventFactory, false);
   }
-
-  delete localStorage["serb-recording"];
 }
 
 chrome.runtime.onMessage.addListener(

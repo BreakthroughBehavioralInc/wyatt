@@ -3,13 +3,11 @@
 var page = "";
 
 function recordClick(target) {
-  page += "&nbsp;&nbsp;&nbsp;&nbsp;expect(page).to have_selector('"+target+"')<br>";
-  page += "&nbsp;&nbsp;&nbsp;&nbsp;click_link('"+target+"')<br>";
+  page += "&nbsp;&nbsp;&nbsp;&nbsp;page.find('"+target+"').click<br>";
 }
 
 function recordInput(target, value) {
-  page += "&nbsp;&nbsp;&nbsp;&nbsp;expect(page).to have_selector('"+target+"')<br>";
-  page += "&nbsp;&nbsp;&nbsp;&nbsp;fill_in('"+target+"', with:'"+value+"')<br>";
+  page += "&nbsp;&nbsp;&nbsp;&nbsp;page.find('"+target+"').set('"+value+"')<br>";
 }
 
 chrome.runtime.onMessage.addListener(

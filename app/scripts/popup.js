@@ -4,6 +4,12 @@ function $(el) {
   return document.querySelector(el);
 }
 
+function send(type) {
+  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+    chrome.tabs.sendMessage(tabs[0].id, {listen: type});
+  });
+}
+
 function beginListening(e) {
   e.preventDefault();
 
@@ -14,9 +20,7 @@ function beginListening(e) {
     context: $("#context-statement").value
   });
 
-  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-    chrome.tabs.sendMessage(tabs[0].id, {listen: "start"});
-  });
+  send("start");
 
   $("#start-wrapper").classList.add("is-hidden");
   $("#recording-wrapper").classList.remove("is-hidden");
@@ -26,11 +30,9 @@ function beginListening(e) {
 
 function stopListening(e) {
   e.preventDefault();
-  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-    chrome.tabs.sendMessage(tabs[0].id, {listen: "stop"}, function(response) {
 
-    });
-  });
+  send("stop");
+  delete localStorage["wyatt-recording"];
 
   $("#expect-wrapper").classList.remove("is-hidden");
   $("#recording-wrapper").classList.add("is-hidden");
@@ -44,7 +46,8 @@ function save(e) {
 
     presentResults(page);
 
-    localStorage["wyatt-recording"] = false;
+    send("stop");
+    delete localStorage["wyatt-recording"];
   });
 }
 
@@ -68,6 +71,7 @@ document.addEventListener("DOMContentLoaded", function() {
   if (localStorage["wyatt-recording"] === "listening") {
     $("#expect-wrapper").classList.remove("is-hidden");
     $("#start-wrapper").classList.add("is-hidden");
+
   } else if (localStorage["wyatt-page"]) {
     presentResults(localStorage["wyatt-page"]);
   }

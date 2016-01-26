@@ -2,6 +2,8 @@
 
 //# sourceMappingURL=contentscript.js.map
 
+var RECORDING_KEY = "wyatt-recording"
+
 
 var helpers = {
   getSelectorFromElement: function(el) {
@@ -99,39 +101,24 @@ function eventFactory(e) {
 }
 
 function beginListening() {
-  var els = document.querySelectorAll('a, button, .btn');
+  Gator(document).on('click', 'a, button, .btn', eventFactory);
+  Gator(document).on('focus', 'select, input', eventFactory);
 
-  for (var i = 0; i < els.length; i++) {
-    els[i].addEventListener('click', eventFactory, false);
-  }
 
-  els = document.querySelectorAll('select, input');
-
-  for (var i = 0; i < els.length; i++) {
-    els[i].addEventListener('focus', eventFactory, false);
-  }
-
-  if (!localStorage["serb-recording"]) {
+  if (!localStorage[RECORDING_KEY]) {
     chrome.runtime.sendMessage({currentPath: window.location.pathname});
   }
 
-  localStorage["serb-recording"] = true;
+  localStorage[RECORDING_KEY] = true;
 }
 
 function stopListening() {
   var els;
 
-  delete localStorage["serb-recording"];
+  delete localStorage[RECORDING_KEY];
 
-  els = document.querySelectorAll('a, button');
-  for (var i = 0; i < els.length; i++) {
-    els[i].removeEventListener('click', eventFactory, false);
-  }
-
-  els = document.querySelectorAll('select, input');
-  for (var i = 0; i < els.length; i++) {
-    els[i].removeEventListener('focus', eventFactory, false);
-  }
+  Gator(document).off('click', 'a, button, .btn', eventFactory);
+  Gator(document).off('focus', 'select, input', eventFactory);
 }
 
 chrome.runtime.onMessage.addListener(
@@ -163,6 +150,6 @@ function focusedInput(e) {
   e.target.addEventListener("blur", helpers.fillIn, false);
 }
 
-if (localStorage["serb-recording"]) {
+if (localStorage[RECORDING_KEY]) {
   beginListening();
 }

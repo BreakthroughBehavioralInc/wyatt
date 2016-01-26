@@ -4,7 +4,6 @@
 
 var RECORDING_KEY = "wyatt-recording"
 
-
 var helpers = {
   getSelectorFromElement: function(el) {
     var targetSelector = el.getAttribute("id"),
@@ -18,12 +17,13 @@ var helpers = {
         targetSelector = Array.prototype.slice.apply(targetSelector);
         targetSelector = targetSelector.map(function(classname) {return "."+classname}).join("");
 
-        if (document.querySelectorAll(targetSelector).length === 1) { // Great the class name combo is unique
-          isAmbiguous = false;
-        } else {
-          children = el.parentElement.children;
+        if (document.querySelectorAll(targetSelector).length > 1) { // Get the nth-child if there are siblings with same class combo
+          children = el.parentElement.querySelectorAll(targetSelector);
           children = Array.prototype.slice.call( children );
-          targetSelector = targetSelector+":nth-child(" + (children.indexOf(el) + 1) + ")";
+          targetSelector = targetSelector+":nth-of-type(" + (children.indexOf(el) + 1) + ")";
+          isAmbiguous = true;
+        } else {
+          isAmbiguous = false;
         }
       }
 
@@ -45,13 +45,13 @@ var helpers = {
 
     targetSelector.unshift( selectorObject[0] );
 
-    while ( document.querySelectorAll( targetSelector.join(" ") ).length > 1 ) {
+    while (selectorObject[1] || document.querySelectorAll( targetSelector.join(" > ") ).length > 1 ) {
       selectorObject = this.getSelectorFromElement(selectorObject[2].parentElement);
 
       targetSelector.unshift( selectorObject[0] );
     }
 
-    return targetSelector.join(" ");
+    return targetSelector.join(" > ");
   },
 
   getNodeElement: function(el) {

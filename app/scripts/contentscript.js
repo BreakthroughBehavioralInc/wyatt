@@ -106,7 +106,7 @@ function eventFactory(e) {
 }
 
 function beginListening() {
-  Gator(document).on('click', 'a, button, .btn', eventFactory);
+  Gator(document).on('click', 'a, button, .btn, .button', eventFactory);
   Gator(document).on('focus', 'select, input', eventFactory);
 
 

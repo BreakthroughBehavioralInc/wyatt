@@ -1,7 +1,7 @@
 <h1>Wyatt - rspec generator</h1>
 Wyatt is a siberian husky that lives inside Chrome. He gets enjoyment from life by helping you write rspec feature tests.
 
-![siberian husky](https://www.avidpost.com/static/media/2015/9/7/9/preview_BZcsCxExjZTrnCWGEOURTPgmYBhGKWtLYpDDiydyphVxKPJJQyTUjnBEqcaPOvQiqj.jpg)
+![siberian husky](https://s3.amazonaws.com/uploads.hipchat.com/75536/541563/BmwNCEfPIQJUqLy/icon-327.png)
 
 Wyatt generates rspec feature tests by clicking around your website. 
 

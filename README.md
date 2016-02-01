@@ -2,6 +2,7 @@
 Wyatt is a siberian husky that lives inside Chrome. He gets enjoyment from life by helping you write rspec feature tests.
 
 ![siberian husky](https://s3.amazonaws.com/uploads.hipchat.com/75536/541563/BmwNCEfPIQJUqLy/icon-327.png)
+<caption>Art by Edan Cohen</caption>
 
 Wyatt generates rspec feature tests by clicking around your website. 
 

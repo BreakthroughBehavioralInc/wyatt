@@ -10,6 +10,26 @@ function recordInput(target, value) {
   page += "&nbsp;&nbsp;&nbsp;&nbsp;page.find('"+target+"').set('"+value+"')<br>";
 }
 
+// Selected Inputs I define as radio and checkboxes
+function recordSelectedInput(target, value) {
+}
+
+// Selected Inputs I define as radio and checkboxes
+function recordSelectedInput(target, value) {
+  var checkedState = target.get
+  checkingInput(target, checkedState);
+}
+
+function checkingInput(target, checkedState) {
+  var checked = "false";
+
+  if (checkedState === "checkedInput") {
+    checked = "true";
+  }
+
+  page += "&nbsp;&nbsp;&nbsp;&nbsp;page.find('"+target+"').set('"+checked+"')<br>";
+}
+
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     console.log(sender.tab ?
@@ -39,8 +59,10 @@ chrome.runtime.onMessage.addListener(
 
       sendResponse({page: page});
 
-    } else if (request.node == "input") {
+    } else if (request.node == "input" && request.eventType.indexOf("checkedInput") === -1) {
       recordInput(request.target, request.value);
+    } else if (request.node == "input" && request.eventType.indexOf("checkedInput") > -1) {
+      checkingInput(request.target, request.eventType);
     } else if (request.currentPath) {
       page = page.replace("{{pathname}}", request.currentPath);
     }

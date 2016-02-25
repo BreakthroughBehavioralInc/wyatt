@@ -79,7 +79,44 @@ var helpers = {
     var targetSelector = helpers.getDomSelector(e.target);
     var value = e.target.value;
     chrome.runtime.sendMessage({eventType: "blur", target: targetSelector, node: "input", value: value});
-    e.target.removeEventListener("blur", helpers.fillIn, false);
+  },
+
+  // Selected Inputs I define as radio and checkboxes
+  selectInput: function(e) {
+    var targetSelector = helpers.getDomSelector(e.target);
+    var eventType;
+
+    if (e.target.checked === true) {
+      eventType = "checkedInput";
+    } else {
+      eventType = "uncheckedInput";
+    }
+
+    chrome.runtime.sendMessage({eventType: eventType, target: targetSelector, node: "input"});
+  },
+
+  inputTextType: {
+    radio: function(e) {
+      helpers.selectInput(e);
+    },
+    checkbox: function(e) {
+      helpers.selectInput(e);
+    },
+    text: function(e) {
+      helpers.fillIn(e);
+    },
+    number: function(e) {
+      helpers.fillIn(e);
+    },
+    password: function(e) {
+      helpers.fillIn(e);
+    },
+    date: function(e) {
+      helpers.fillIn(e);
+    },
+    email: function(e) {
+      helpers.fillIn(e);
+    }
   }
 };
 
@@ -89,7 +126,7 @@ function eventFactory(e) {
 
   switch(el) {
     case "INPUT":
-      focusedInput(e);
+      focusedInput(e, "input");
       break;
     case "SELECT":
       focusedSelect(e);
@@ -107,7 +144,7 @@ function eventFactory(e) {
 
 function beginListening() {
   Gator(document).on('click', 'a, button, .btn, .button', eventFactory);
-  Gator(document).on('focus', 'select, input', eventFactory);
+  Gator(document).on('blur', 'select, input', eventFactory);
 
 
   if (!localStorage[RECORDING_KEY]) {
@@ -123,7 +160,7 @@ function stopListening() {
   delete localStorage[RECORDING_KEY];
 
   Gator(document).off('click', 'a, button, .btn', eventFactory);
-  Gator(document).off('focus', 'select, input', eventFactory);
+  Gator(document).off('blur', 'select, input', eventFactory);
 }
 
 chrome.runtime.onMessage.addListener(
@@ -152,7 +189,9 @@ function clickedButton(e) {
 }
 
 function focusedInput(e) {
-  e.target.addEventListener("blur", helpers.fillIn, false);
+  var el = e.target;
+  var type = el.getAttribute("type");
+  helpers.inputTextType[type](e);
 }
 
 if (localStorage[RECORDING_KEY]) {

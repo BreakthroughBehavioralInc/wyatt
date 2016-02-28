@@ -39,3 +39,19 @@ button, input[type=submit] {
 #result-inner {
   margin-bottom: 40px;
 }
+
+.thumbnail {
+  position: relative;
+  min-height: 130px;
+}
+
+.thumbnail img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100px;
+}
+
+.thumbnail .text {
+  padding-left: 110px;
+}

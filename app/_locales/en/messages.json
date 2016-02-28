@@ -1,10 +1,10 @@
 {
   "appName": {
-    "message": "Serb",
+    "message": "Wyatt",
     "description": "The name of the application"
   },
   "appDescription": {
-    "message": "My Chrome Extension",
+    "message": "He is a siberian husky that lives in Chrome, and helps write rspec tests by recording your actions in the browser.",
     "description": "The description of the application"
   }
 }

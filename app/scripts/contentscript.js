@@ -116,6 +116,9 @@ var helpers = {
     },
     email: function(e) {
       helpers.fillIn(e);
+    },
+    search: function(e) {
+      helpers.fillIn(e);
     }
   }
 };
@@ -124,22 +127,27 @@ var helpers = {
 function eventFactory(e) {
   var el = e.target.nodeName.toUpperCase();
 
-  switch(el) {
-    case "INPUT":
-      focusedInput(e, "input");
-      break;
-    case "SELECT":
-      focusedSelect(e);
-      break;
-    case "BUTTON":
-      clickedButton(e);
-      break;
-    case "A":
-      clickedLink(e);
-      break;
-    default:
-      clickedLink(e);
+  try {
+    switch(el) {
+      case "INPUT":
+        focusedInput(e, "input");
+        break;
+      case "SELECT":
+        focusedSelect(e);
+        break;
+      case "BUTTON":
+        clickedButton(e);
+        break;
+      case "A":
+        clickedLink(e);
+        break;
+      default:
+        clickedLink(e);
+    }
+
+    catch() {}
   }
+
 }
 
 function beginListening() {

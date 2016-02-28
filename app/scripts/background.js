@@ -10,11 +10,6 @@ function recordInput(target, value) {
   page += "&nbsp;&nbsp;&nbsp;&nbsp;page.find('"+target+"').set('"+value+"')<br>";
 }
 
-// Selected Inputs I define as radio and checkboxes
-function recordSelectedInput(target, value) {
-}
-
-// Selected Inputs I define as radio and checkboxes
 function recordSelectedInput(target, value) {
   var checkedState = target.get
   checkingInput(target, checkedState);

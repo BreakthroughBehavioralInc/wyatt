@@ -144,9 +144,9 @@ function eventFactory(e) {
       default:
         clickedLink(e);
     }
-
-    catch() {}
   }
+
+  catch(e) {console.warn("Wyatt error", e);}
 
 }
 

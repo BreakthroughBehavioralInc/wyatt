@@ -81,6 +81,14 @@ var helpers = {
     chrome.runtime.sendMessage({eventType: "blur", target: targetSelector, node: "input", value: value});
   },
 
+  selectOption: function(e) {
+    var el = e.target;
+    var select = helpers.getDomSelector(el);
+    var option = el.options[el.selectedIndex].value;
+
+    chrome.runtime.sendMessage({target: select, node: "select", option: option});
+  },
+
   // Selected Inputs I define as radio and checkboxes
   selectInput: function(e) {
     var targetSelector = helpers.getDomSelector(e.target);
@@ -125,28 +133,32 @@ var helpers = {
 
 
 function eventFactory(e) {
-  var el = e.target.nodeName.toUpperCase();
+  var el = e.target;
+  var nodeName = el.nodeName.toUpperCase();
 
   try {
-    switch(el) {
+    switch(nodeName) {
       case "INPUT":
-        focusedInput(e, "input");
+        helpers.inputTextType[e.target.type](e);
         break;
       case "SELECT":
-        focusedSelect(e);
+        helpers.selectOption(e);
         break;
       case "BUTTON":
-        clickedButton(e);
+        helpers.clicked(e, "button");
         break;
       case "A":
-        clickedLink(e);
+        helpers.clicked(e, "a");
         break;
       default:
-        clickedLink(e);
+        helpers.clicked(e, e.target.nodeName.toLowerCase());
     }
   }
 
-  catch(e) {console.warn("Wyatt error", e);}
+  catch(e) {
+    stopListening();
+    chrome.runtime.sendMessage({error: "An error has occurred trying to trigger "+el+""});
+  }
 
 }
 
@@ -187,20 +199,6 @@ chrome.runtime.onMessage.addListener(
     }
   }
 );
-
-function clickedLink(e) {
-  helpers.clicked(e, "a");
-}
-
-function clickedButton(e) {
-  helpers.clicked(e, "button");
-}
-
-function focusedInput(e) {
-  var el = e.target;
-  var type = el.getAttribute("type");
-  helpers.inputTextType[type](e);
-}
 
 if (localStorage[RECORDING_KEY]) {
   beginListening();

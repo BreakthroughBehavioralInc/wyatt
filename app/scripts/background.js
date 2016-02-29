@@ -2,6 +2,10 @@
 
 var page = "";
 
+function selectOption(select, option) {
+  page += "select '"+option+"', :from => '"+select+"'";
+}
+
 function recordClick(target) {
   page += "&nbsp;&nbsp;&nbsp;&nbsp;page.find('"+target+"').click<br>";
 }
@@ -31,6 +35,11 @@ chrome.runtime.onMessage.addListener(
     "from a content script:" + sender.tab.url :
       "from the extension");
 
+    if (request.error) {
+      page += "<br>Uh oh, Errors!<br>";
+      return page += request.error.toString();
+    }
+
     if (request.listen == "start") {
       page = "";
       page += 'require "rails_helper"<br><br>';
@@ -58,6 +67,8 @@ chrome.runtime.onMessage.addListener(
       recordInput(request.target, request.value);
     } else if (request.node == "input" && request.eventType.indexOf("checkedInput") > -1) {
       checkingInput(request.target, request.eventType);
+    } else if (request.node == "select") {
+      selectOption(request.target, request.option);
     } else if (request.currentPath) {
       page = page.replace("{{pathname}}", request.currentPath);
     }

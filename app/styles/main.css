@@ -4,8 +4,20 @@ body {
   height: 600px;
 }
 
+hr {
+  margin: 30px 0 20px;
+}
+
+.block {
+  display: block;
+}
+
 .is-hidden {
   display: none;
+}
+
+.margin-bottom-10 {
+  margin-bottom: 10px;
 }
 
 .margin-bottom-20 {

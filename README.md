@@ -6,7 +6,19 @@ Wyatt is a siberian husky that lives inside Chrome. He gets enjoyment from life 
 
 Wyatt generates rspec feature tests by clicking around your website. 
 
-Current support includes links and inputs.
+Current support includes a tag links, inputs, selects, and buttons.
+
+Current input type support:
+Radio
+Checkbox
+Text
+Number
+Password
+Date
+Email
+Search
+
+At this time does not support select2 components.
 
 Uses the yeoman chrome extension build tool.
 

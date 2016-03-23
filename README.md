@@ -47,10 +47,6 @@ It does not include jQuery, so you must write plain javascript please.
 There are no tests at the moment, but that will change soon.
 
 <h3>Roadmap</h3>
-1. Ensure consistent results
+1. Write tests
 
-2. Ensure capybara understands the generated selectors
-
-3. Write tests
-
-4. Add support for selects, radio, and checkboxes.
+2. Add support for li and select2

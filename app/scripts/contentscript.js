@@ -2,6 +2,10 @@
 
 //# sourceMappingURL=contentscript.js.map
 
+var CLICK_SELECTORS = 'a, button, .btn, .button';
+
+var FILL_SELECTORS = 'select, input';
+
 var RECORDING_KEY = "wyatt-recording"
 
 var helpers = {
@@ -131,7 +135,6 @@ var helpers = {
   }
 };
 
-
 function eventFactory(e) {
   var el = e.target;
   var nodeName = el.nodeName.toUpperCase();
@@ -163,8 +166,8 @@ function eventFactory(e) {
 }
 
 function beginListening() {
-  Gator(document).on('click', 'a, button, .btn, .button', eventFactory);
-  Gator(document).on('blur', 'select, input', eventFactory);
+  Gator(document).on('click', CLICK_SELECTORS, eventFactory);
+  Gator(document).on('blur', FILL_SELECTORS, eventFactory);
 
 
   if (!localStorage[RECORDING_KEY]) {
@@ -176,11 +179,10 @@ function beginListening() {
 
 function stopListening() {
   var els;
-
   delete localStorage[RECORDING_KEY];
 
-  Gator(document).off('click', 'a, button, .btn', eventFactory);
-  Gator(document).off('blur', 'select, input', eventFactory);
+  Gator(document).off('click', CLICK_SELECTORS, eventFactory);
+  Gator(document).off('blur', FILL_SELECTORS, eventFactory);
 }
 
 chrome.runtime.onMessage.addListener(
